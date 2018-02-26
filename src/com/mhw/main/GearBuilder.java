@@ -23,29 +23,37 @@ import com.mhw.gear.Gear;
 public class GearBuilder {
 	
 	@SuppressWarnings("unchecked")
-	public void jsonBuilder(Gear gear) throws IOException {
+	public void jsonBuilder(Gear gear, String gearType) throws IOException {
 		
-		JSONObject headObject = new JSONObject();
+		String headPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\headgear.json";
+		String chestPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\chestgear.json";
+		String gauntletPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\gauntletgear.json";
+		String waistPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\waistgear.json";
+		String feetPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\feetgear.json";
+		
+		String path = null;
+		
+		JSONObject object = new JSONObject();
 		JSONObject slotObject = new JSONObject();
 		JSONObject skillsObject = new JSONObject();
 		JSONObject skill1Object = new JSONObject();
 		JSONObject skill2Object = new JSONObject();
 		JSONObject bonusObject = new JSONObject();
 		
-		headObject.put("name", gear.getName());
-		headObject.put("monster", gear.getMonster());
-		headObject.put("defense", gear.getDefense());
+		object.put("name", gear.getName());
+		object.put("monster", gear.getMonster());
+		object.put("defense", gear.getDefense());
 		
 		slotObject.put("slotType1", gear.getSlotType1());
 		slotObject.put("slotType2", gear.getSlotType2());
 		slotObject.put("slotType3", gear.getSlotType3());
-		headObject.put("slots", slotObject);
+		object.put("slots", slotObject);
 		
-		headObject.put("fireDef", gear.getFireDef());
-		headObject.put("waterDef", gear.getWaterDef());
-		headObject.put("thunderDef", gear.getThunderDef());
-		headObject.put("iceDef", gear.getIceDef());
-		headObject.put("draongDef", gear.getDragonDef());
+		object.put("fireDef", gear.getFireDef());
+		object.put("waterDef", gear.getWaterDef());
+		object.put("thunderDef", gear.getThunderDef());
+		object.put("iceDef", gear.getIceDef());
+		object.put("draongDef", gear.getDragonDef());
 		
 		skill1Object.put("name", gear.getSkill1Name());
 		skill1Object.put("quantity", gear.getSkill1Quantity());
@@ -63,18 +71,28 @@ public class GearBuilder {
 			skillsObject.put("bonus", bonusObject);
 		}
 		
-		headObject.put("skills", skillsObject);
+		object.put("skills", skillsObject);
 		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\\\ATDEV\\\\workspaces\\\\playground\\\\JSONCreatorMHW\\\\src\\\\gauntletgearLow.json", true))) {
-			bw.write(headObject.toJSONString() + ",");
+		if (gearType == "headgear") {
+			path = headPath;
+		} else if (gearType == "chestgear") {
+			path = chestPath;
+		} else if (gearType == "gauntletgear") {
+			path = gauntletPath;
+		} else if (gearType == "waistgear") {
+			path = waistPath;
+		} else if (gearType == "feetgear") {
+			path = feetPath;
+		}
+		
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+			bw.write(object.toJSONString() + ",");
 		}
 		
 		
 	}
 	
 	GearBuilder() {
-		Gear headGear = new Gear();
-		
 		JFrame gearFrame = new JFrame();
 		JPanel gearPanel = new JPanel(new SpringLayout());
 		
@@ -216,47 +234,64 @@ public class GearBuilder {
 		gearPanel.add(bonusNameLabel);
 		bonusNameLabel.setLabelFor(bonusName);
 		gearPanel.add(bonusName);
+		
+		JTextField[] textField = {name,monster,defense,slotType1,slotType2,slotType3,fireDef,waterDef,thunderDef,iceDef,dragonDef,skill1Name,skill1Quantity,skill2Name,skill2Quantity,bonusRequiredPieces,bonusName};
+		JButton headGear = new GearBuilder().jButton("headgear", textField);
+		JButton chestGear = new GearBuilder().jButton("chestgear", textField);
+		JButton gauntletGear = new GearBuilder().jButton("gauntletgear", textField);
+		JButton waistGear = new GearBuilder().jButton("waistgear", textField);
+		JButton feetGear = new GearBuilder().jButton("feetgear", textField);
 
-		JButton submit = new JButton("Submit");
-		submit.setFont(new Font("Arial", Font.PLAIN, 30));
-		submit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				headGear.setName(name.getText());
-				headGear.setMonster(monster.getText());
-				headGear.setDefense(defense.getText());
-				headGear.setSlotType1(slotType1.getText());
-				headGear.setSlotType2(slotType2.getText());
-				headGear.setSlotType3(slotType3.getText());
-				headGear.setFireDef(fireDef.getText());
-				headGear.setWaterDef(waterDef.getText());
-				headGear.setThunderDef(thunderDef.getText());
-				headGear.setIceDef(iceDef.getText());
-				headGear.setDragonDef(dragonDef.getText());
-				headGear.setSkill1Name(skill1Name.getText());
-				headGear.setSkill1Quantity(skill1Quantity.getText());
-				headGear.setSkill2Name(skill2Name.getText());
-				headGear.setSkill2Quantity(skill2Quantity.getText());
-				headGear.setBonusName(bonusName.getText());
-				headGear.setBonusRequiredPieces(bonusRequiredPieces.getText());
-				try {
-					new GearBuilder().jsonBuilder(headGear);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				gearFrame.setVisible(false);
-			}
-		});
-
-		gearPanel.add(submit);
-		gearPanel.setLayout(new GridLayout(numPairs + 1 ,2));
+		gearPanel.add(headGear);
+		gearPanel.add(chestGear);
+		gearPanel.add(gauntletGear);
+		gearPanel.add(waistGear);
+		gearPanel.add(feetGear);
+		gearPanel.setLayout(new GridLayout(numPairs + 6 ,2));
 		gearFrame.add(gearPanel);
 		gearFrame.setTitle("Enter gear properties");
 		gearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gearFrame.setLocationRelativeTo(null);
 		gearFrame.setPreferredSize(new Dimension(700, 500));
+		gearFrame.pack();
 		
 		gearFrame.setVisible(true);
 		
+	}
+	
+	public JButton jButton(String gearType, JTextField[] textField) {
+		JButton button = new JButton(gearType);
+		Gear gear = new Gear();
+		
+		button = new JButton(gearType);
+		button.setFont(new Font("Arial", Font.PLAIN, 30));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gear.setName(textField[0].getText());
+				gear.setMonster(textField[1].getText());
+				gear.setDefense(textField[2].getText());
+				gear.setSlotType1(textField[3].getText());
+				gear.setSlotType2(textField[4].getText());
+				gear.setSlotType3(textField[5].getText());
+				gear.setFireDef(textField[6].getText());
+				gear.setWaterDef(textField[7].getText());
+				gear.setThunderDef(textField[8].getText());
+				gear.setIceDef(textField[9].getText());
+				gear.setDragonDef(textField[10].getText());
+				gear.setSkill1Name(textField[11].getText());
+				gear.setSkill1Quantity(textField[12].getText());
+				gear.setSkill2Name(textField[13].getText());
+				gear.setSkill2Quantity(textField[14].getText());
+				gear.setBonusName(textField[15].getText());
+				gear.setBonusRequiredPieces(textField[16].getText());
+				try {
+					new GearBuilder().jsonBuilder(gear, gearType);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		return button;
 	}
 
 }
