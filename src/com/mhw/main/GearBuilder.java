@@ -21,277 +21,382 @@ import org.json.simple.JSONObject;
 import com.mhw.gear.Gear;
 
 public class GearBuilder {
-	
-	@SuppressWarnings("unchecked")
-	public void jsonBuilder(Gear gear, String gearType) throws IOException {
-		
-		String headPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\headgear.json";
-		String chestPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\chestgear.json";
-		String gauntletPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\gauntletgear.json";
-		String waistPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\waistgear.json";
-		String feetPath = "C:\\Users\\John\\git\\MHWJsonBuilder\\src\\feetgear.json";
-		
-		String path = null;
-		
-		JSONObject object = new JSONObject();
-		JSONObject slotObject = new JSONObject();
-		JSONObject skillsObject = new JSONObject();
-		JSONObject skill1Object = new JSONObject();
-		JSONObject skill2Object = new JSONObject();
-		JSONObject bonusObject = new JSONObject();
-		
-		object.put("name", gear.getName());
-		object.put("monster", gear.getMonster());
-		object.put("defense", gear.getDefense());
-		
-		slotObject.put("slotType1", gear.getSlotType1());
-		slotObject.put("slotType2", gear.getSlotType2());
-		slotObject.put("slotType3", gear.getSlotType3());
-		object.put("slots", slotObject);
-		
-		object.put("fireDef", gear.getFireDef());
-		object.put("waterDef", gear.getWaterDef());
-		object.put("thunderDef", gear.getThunderDef());
-		object.put("iceDef", gear.getIceDef());
-		object.put("draongDef", gear.getDragonDef());
-		
-		skill1Object.put("name", gear.getSkill1Name());
-		skill1Object.put("quantity", gear.getSkill1Quantity());
-		skillsObject.put("skill1", skill1Object);
-		
-		if (gear.getSkill2Name() != "") {
-			skill2Object.put("name", gear.getSkill2Name());
-			skill2Object.put("quantity", gear.getSkill2Quantity());
-			skillsObject.put("skill2", skill1Object);
-		}
-		
-		if (gear.getBonusName() != "") {
-			bonusObject.put("requiredPieces", gear.getBonusRequiredPieces());
-			bonusObject.put("name", gear.getBonusName());
-			skillsObject.put("bonus", bonusObject);
-		}
-		
-		object.put("skills", skillsObject);
-		
-		if (gearType == "headgear") {
-			path = headPath;
-		} else if (gearType == "chestgear") {
-			path = chestPath;
-		} else if (gearType == "gauntletgear") {
-			path = gauntletPath;
-		} else if (gearType == "waistgear") {
-			path = waistPath;
-		} else if (gearType == "feetgear") {
-			path = feetPath;
-		}
-		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-			bw.write(object.toJSONString() + ",");
-		}
-		
-		
-	}
-	
+
 	GearBuilder() {
+		Gear gear = new Gear();
+
 		JFrame gearFrame = new JFrame();
 		JPanel gearPanel = new JPanel(new SpringLayout());
-		
-		String[] labels = {"Gear Name", "Monster Name", "Defense(int)", "First Slot(int)", "Second Slot(int)", "Third Slot(int)", "Fire Defense", "Water Defense", "Thunder Defense", "Ice Defense", "Dragon Defense", "First Skill Name", "First Skill Quantity(int)", "Second Skill Name", "Second Skill Quantity(int)", "Bonus Skill Name", "Bonus Skill Pieces(int)"};
+
+		String[] labels = { "Gear Name", "Price", "Defense(int)", "First Slot(int)", "Second Slot(int)",
+				"Third Slot(int)", "Fire Defense", "Water Defense", "Thunder Defense", "Ice Defense", "Dragon Defense",
+				"First Skill Name", "First Skill Quantity(int)", "Second Skill Name", "Second Skill Quantity(int)",
+				"First Material", "Quantity", "Second Material", "Quantity", "Third Material", "Quantity",
+				"Fourth Material", "Quantity" };
 		int numPairs = labels.length;
-		
+		int i = 0;
+
 		JTextField name = new JTextField();
 		name.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel nameLabel = new JLabel(labels[0], JLabel.TRAILING);
+		JLabel nameLabel = new JLabel(labels[i], JLabel.TRAILING);
 		nameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(nameLabel);
 		nameLabel.setLabelFor(name);
 		gearPanel.add(name);
-		
-		JTextField monster = new JTextField();
-		monster.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel monsterLabel = new JLabel(labels[1], JLabel.TRAILING);
-		monsterLabel.setFont(new Font("Arial", Font.PLAIN, 30));
-		gearPanel.add(monsterLabel);
-		monsterLabel.setLabelFor(monster);
-		gearPanel.add(monster);
-		
+
+		JTextField price = new JTextField();
+		price.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel priceLabel = new JLabel(labels[++i], JLabel.TRAILING);
+		priceLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(priceLabel);
+		priceLabel.setLabelFor(price);
+		gearPanel.add(price);
+
 		JTextField defense = new JTextField();
 		defense.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel defenseLabel = new JLabel(labels[2], JLabel.TRAILING);
+		JLabel defenseLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		defenseLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(defenseLabel);
 		defenseLabel.setLabelFor(defense);
 		gearPanel.add(defense);
-		
+
 		JTextField slotType1 = new JTextField();
 		slotType1.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel slotType1Label = new JLabel(labels[3], JLabel.TRAILING);
+		JLabel slotType1Label = new JLabel(labels[++i], JLabel.TRAILING);
 		slotType1Label.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(slotType1Label);
 		slotType1Label.setLabelFor(slotType1);
 		gearPanel.add(slotType1);
-		
+
 		JTextField slotType2 = new JTextField();
 		slotType2.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel slotType2Label = new JLabel(labels[4], JLabel.TRAILING);
+		JLabel slotType2Label = new JLabel(labels[++i], JLabel.TRAILING);
 		slotType2Label.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(slotType2Label);
 		slotType2Label.setLabelFor(slotType2);
 		gearPanel.add(slotType2);
-		
+
 		JTextField slotType3 = new JTextField();
 		slotType3.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel slotType3Label = new JLabel(labels[5], JLabel.TRAILING);
+		JLabel slotType3Label = new JLabel(labels[++i], JLabel.TRAILING);
 		slotType3Label.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(slotType3Label);
 		slotType3Label.setLabelFor(slotType3);
 		gearPanel.add(slotType3);
-		
+
 		JTextField fireDef = new JTextField();
 		fireDef.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel fireDefLabel = new JLabel(labels[6], JLabel.TRAILING);
+		JLabel fireDefLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		fireDefLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(fireDefLabel);
 		fireDefLabel.setLabelFor(fireDef);
 		gearPanel.add(fireDef);
-		
+
 		JTextField waterDef = new JTextField();
 		waterDef.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel waterDefLabel = new JLabel(labels[7], JLabel.TRAILING);
+		JLabel waterDefLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		waterDefLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(waterDefLabel);
 		waterDefLabel.setLabelFor(waterDef);
 		gearPanel.add(waterDef);
-		
+
 		JTextField thunderDef = new JTextField();
 		thunderDef.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel thunderDefLabel = new JLabel(labels[8], JLabel.TRAILING);
+		JLabel thunderDefLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		thunderDefLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(thunderDefLabel);
 		thunderDefLabel.setLabelFor(thunderDef);
 		gearPanel.add(thunderDef);
-		
+
 		JTextField iceDef = new JTextField();
 		iceDef.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel iceDefLabel = new JLabel(labels[9], JLabel.TRAILING);
+		JLabel iceDefLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		iceDefLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(iceDefLabel);
 		iceDefLabel.setLabelFor(iceDef);
 		gearPanel.add(iceDef);
-		
+
 		JTextField dragonDef = new JTextField();
 		dragonDef.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel dragonDefLabel = new JLabel(labels[10], JLabel.TRAILING);
+		JLabel dragonDefLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		dragonDefLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(dragonDefLabel);
 		dragonDefLabel.setLabelFor(dragonDef);
 		gearPanel.add(dragonDef);
-		
+
 		JTextField skill1Name = new JTextField();
 		skill1Name.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel skill1NameLabel = new JLabel(labels[11], JLabel.TRAILING);
+		JLabel skill1NameLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		skill1NameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(skill1NameLabel);
 		skill1NameLabel.setLabelFor(skill1Name);
 		gearPanel.add(skill1Name);
-		
+
 		JTextField skill1Quantity = new JTextField();
 		skill1Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel skill1QuantityLabel = new JLabel(labels[12], JLabel.TRAILING);
+		JLabel skill1QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		skill1QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(skill1QuantityLabel);
 		skill1QuantityLabel.setLabelFor(skill1Quantity);
 		gearPanel.add(skill1Quantity);
-		
+
 		JTextField skill2Name = new JTextField();
 		skill2Name.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel skill2NameLabel = new JLabel(labels[13], JLabel.TRAILING);
+		JLabel skill2NameLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		skill2NameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(skill2NameLabel);
 		skill2NameLabel.setLabelFor(skill2Name);
 		gearPanel.add(skill2Name);
-		
+
 		JTextField skill2Quantity = new JTextField();
 		skill2Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel skill2QuantityLabel = new JLabel(labels[14], JLabel.TRAILING);
+		JLabel skill2QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
 		skill2QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		gearPanel.add(skill2QuantityLabel);
 		skill2QuantityLabel.setLabelFor(skill2Quantity);
 		gearPanel.add(skill2Quantity);
-		
-		JTextField bonusRequiredPieces = new JTextField();
-		bonusRequiredPieces.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel bonusRequiredPiecesLabel = new JLabel(labels[15], JLabel.TRAILING);
-		bonusRequiredPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 30));
-		gearPanel.add(bonusRequiredPiecesLabel);
-		bonusRequiredPiecesLabel.setLabelFor(bonusRequiredPieces);
-		gearPanel.add(bonusRequiredPieces);
-		
-		JTextField bonusName = new JTextField();
-		bonusName.setFont(new Font("Arial", Font.PLAIN, 30));
-		JLabel bonusNameLabel = new JLabel(labels[16], JLabel.TRAILING);
-		bonusNameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
-		gearPanel.add(bonusNameLabel);
-		bonusNameLabel.setLabelFor(bonusName);
-		gearPanel.add(bonusName);
-		
-		JTextField[] textField = {name,monster,defense,slotType1,slotType2,slotType3,fireDef,waterDef,thunderDef,iceDef,dragonDef,skill1Name,skill1Quantity,skill2Name,skill2Quantity,bonusRequiredPieces,bonusName};
-		JButton headGear = new GearBuilder().jButton("headgear", textField);
-		JButton chestGear = new GearBuilder().jButton("chestgear", textField);
-		JButton gauntletGear = new GearBuilder().jButton("gauntletgear", textField);
-		JButton waistGear = new GearBuilder().jButton("waistgear", textField);
-		JButton feetGear = new GearBuilder().jButton("feetgear", textField);
 
+		JTextField materials1 = new JTextField();
+		materials1.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials1Label = new JLabel(labels[++i], JLabel.TRAILING);
+		materials1Label.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials1Label);
+		materials1Label.setLabelFor(materials1);
+		gearPanel.add(materials1);
+
+		JTextField materials1Quantity = new JTextField();
+		materials1Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials1QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
+		materials1QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials1QuantityLabel);
+		materials1QuantityLabel.setLabelFor(materials1Quantity);
+		gearPanel.add(materials1Quantity);
+
+		JTextField materials2 = new JTextField();
+		materials2.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials2Label = new JLabel(labels[++i], JLabel.TRAILING);
+		materials2Label.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials2Label);
+		materials2Label.setLabelFor(materials2);
+		gearPanel.add(materials2);
+
+		JTextField materials2Quantity = new JTextField();
+		materials2Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials2QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
+		materials2QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials2QuantityLabel);
+		materials2QuantityLabel.setLabelFor(materials2Quantity);
+		gearPanel.add(materials2Quantity);
+
+		JTextField materials3 = new JTextField();
+		materials3.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials3Label = new JLabel(labels[++i], JLabel.TRAILING);
+		materials3Label.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials3Label);
+		materials3Label.setLabelFor(materials3);
+		gearPanel.add(materials3);
+
+		JTextField materials3Quantity = new JTextField();
+		materials3Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials3QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
+		materials3QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials3QuantityLabel);
+		materials3QuantityLabel.setLabelFor(materials3Quantity);
+		gearPanel.add(materials3Quantity);
+
+		JTextField materials4 = new JTextField();
+		materials4.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials4Label = new JLabel(labels[++i], JLabel.TRAILING);
+		materials4Label.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials4Label);
+		materials4Label.setLabelFor(materials4);
+		gearPanel.add(materials4);
+
+		JTextField materials4Quantity = new JTextField();
+		materials4Quantity.setFont(new Font("Arial", Font.PLAIN, 30));
+		JLabel materials4QuantityLabel = new JLabel(labels[++i], JLabel.TRAILING);
+		materials4QuantityLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+		gearPanel.add(materials4QuantityLabel);
+		materials4QuantityLabel.setLabelFor(materials4Quantity);
+		gearPanel.add(materials4Quantity);
+
+		JTextField[] textField = { name, price, defense, slotType1, slotType2, slotType3, fireDef, waterDef, thunderDef,
+				iceDef, dragonDef, skill1Name, skill1Quantity, skill2Name, skill2Quantity, materials1,
+				materials1Quantity, materials2, materials2Quantity, materials3, materials3Quantity, materials4,
+				materials4Quantity };
+
+		JButton headGear = new JButton("Head");
+		headGear.setFont(new Font("Arial", Font.PLAIN, 30));
+		headGear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				gear.setName(textField[i].getText());
+				gear.setPrice(textField[++i].getText());
+				gear.setDefense(textField[++i].getText());
+				gear.setSlotType1(textField[++i].getText());
+				gear.setSlotType2(textField[++i].getText());
+				gear.setSlotType3(textField[++i].getText());
+				gear.setFireDef(textField[++i].getText());
+				gear.setWaterDef(textField[++i].getText());
+				gear.setThunderDef(textField[++i].getText());
+				gear.setIceDef(textField[++i].getText());
+				gear.setDragonDef(textField[++i].getText());
+				gear.setSkill1Name(textField[++i].getText());
+				gear.setSkill1Quantity(textField[++i].getText());
+				gear.setSkill2Name(textField[++i].getText());
+				gear.setSkill2Quantity(textField[++i].getText());
+				gear.setMaterial1(textField[++i].getText());
+				gear.setMaterial1Quantity(textField[++i].getText());
+				gear.setMaterial2(textField[++i].getText());
+				gear.setMaterial2Quantity(textField[++i].getText());
+				gear.setMaterial3(textField[++i].getText());
+				gear.setMaterial3Quantity(textField[++i].getText());
+				gear.setMaterial4(textField[++i].getText());
+				gear.setMaterial4Quantity(textField[++i].getText());
+				new JsonBuilder(gear, "headgear");
+			}
+		});
+
+		JButton chestGear = new JButton("Chest");
+		chestGear.setFont(new Font("Arial", Font.PLAIN, 30));
+		chestGear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				gear.setName(textField[i].getText());
+				gear.setPrice(textField[++i].getText());
+				gear.setDefense(textField[++i].getText());
+				gear.setSlotType1(textField[++i].getText());
+				gear.setSlotType2(textField[++i].getText());
+				gear.setSlotType3(textField[++i].getText());
+				gear.setFireDef(textField[++i].getText());
+				gear.setWaterDef(textField[++i].getText());
+				gear.setThunderDef(textField[++i].getText());
+				gear.setIceDef(textField[++i].getText());
+				gear.setDragonDef(textField[++i].getText());
+				gear.setSkill1Name(textField[++i].getText());
+				gear.setSkill1Quantity(textField[++i].getText());
+				gear.setSkill2Name(textField[++i].getText());
+				gear.setSkill2Quantity(textField[++i].getText());
+				gear.setMaterial1(textField[++i].getText());
+				gear.setMaterial1Quantity(textField[++i].getText());
+				gear.setMaterial2(textField[++i].getText());
+				gear.setMaterial2Quantity(textField[++i].getText());
+				gear.setMaterial3(textField[++i].getText());
+				gear.setMaterial3Quantity(textField[++i].getText());
+				gear.setMaterial4(textField[++i].getText());
+				gear.setMaterial4Quantity(textField[++i].getText());
+				new JsonBuilder(gear,"chestgear");
+			}
+		});
+
+		JButton gauntletGear = new JButton("Gauntlet");
+		gauntletGear.setFont(new Font("Arial", Font.PLAIN, 30));
+		gauntletGear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				gear.setName(textField[i].getText());
+				gear.setPrice(textField[++i].getText());
+				gear.setDefense(textField[++i].getText());
+				gear.setSlotType1(textField[++i].getText());
+				gear.setSlotType2(textField[++i].getText());
+				gear.setSlotType3(textField[++i].getText());
+				gear.setFireDef(textField[++i].getText());
+				gear.setWaterDef(textField[++i].getText());
+				gear.setThunderDef(textField[++i].getText());
+				gear.setIceDef(textField[++i].getText());
+				gear.setDragonDef(textField[++i].getText());
+				gear.setSkill1Name(textField[++i].getText());
+				gear.setSkill1Quantity(textField[++i].getText());
+				gear.setSkill2Name(textField[++i].getText());
+				gear.setSkill2Quantity(textField[++i].getText());
+				gear.setMaterial1(textField[++i].getText());
+				gear.setMaterial1Quantity(textField[++i].getText());
+				gear.setMaterial2(textField[++i].getText());
+				gear.setMaterial2Quantity(textField[++i].getText());
+				gear.setMaterial3(textField[++i].getText());
+				gear.setMaterial3Quantity(textField[++i].getText());
+				gear.setMaterial4(textField[++i].getText());
+				gear.setMaterial4Quantity(textField[++i].getText());
+				new JsonBuilder(gear, "gauntletgear");
+			}
+		});
+
+		JButton waistGear = new JButton("Waist");
+		waistGear.setFont(new Font("Arial", Font.PLAIN, 30));
+		waistGear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				gear.setName(textField[i].getText());
+				gear.setPrice(textField[++i].getText());
+				gear.setDefense(textField[++i].getText());
+				gear.setSlotType1(textField[++i].getText());
+				gear.setSlotType2(textField[++i].getText());
+				gear.setSlotType3(textField[++i].getText());
+				gear.setFireDef(textField[++i].getText());
+				gear.setWaterDef(textField[++i].getText());
+				gear.setThunderDef(textField[++i].getText());
+				gear.setIceDef(textField[++i].getText());
+				gear.setDragonDef(textField[++i].getText());
+				gear.setSkill1Name(textField[++i].getText());
+				gear.setSkill1Quantity(textField[++i].getText());
+				gear.setSkill2Name(textField[++i].getText());
+				gear.setSkill2Quantity(textField[++i].getText());
+				gear.setMaterial1(textField[++i].getText());
+				gear.setMaterial1Quantity(textField[++i].getText());
+				gear.setMaterial2(textField[++i].getText());
+				gear.setMaterial2Quantity(textField[++i].getText());
+				gear.setMaterial3(textField[++i].getText());
+				gear.setMaterial3Quantity(textField[++i].getText());
+				gear.setMaterial4(textField[++i].getText());
+				gear.setMaterial4Quantity(textField[++i].getText());
+				new JsonBuilder(gear, "waistgear");
+			}
+		});
+
+		JButton feetGear = new JButton("Feet");
+		feetGear.setFont(new Font("Arial", Font.PLAIN, 30));
+		feetGear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				gear.setName(textField[i].getText());
+				gear.setPrice(textField[++i].getText());
+				gear.setDefense(textField[++i].getText());
+				gear.setSlotType1(textField[++i].getText());
+				gear.setSlotType2(textField[++i].getText());
+				gear.setSlotType3(textField[++i].getText());
+				gear.setFireDef(textField[++i].getText());
+				gear.setWaterDef(textField[++i].getText());
+				gear.setThunderDef(textField[++i].getText());
+				gear.setIceDef(textField[++i].getText());
+				gear.setDragonDef(textField[++i].getText());
+				gear.setSkill1Name(textField[++i].getText());
+				gear.setSkill1Quantity(textField[++i].getText());
+				gear.setSkill2Name(textField[++i].getText());
+				gear.setSkill2Quantity(textField[++i].getText());
+				gear.setMaterial1(textField[++i].getText());
+				gear.setMaterial1Quantity(textField[++i].getText());
+				gear.setMaterial2(textField[++i].getText());
+				gear.setMaterial2Quantity(textField[++i].getText());
+				gear.setMaterial3(textField[++i].getText());
+				gear.setMaterial3Quantity(textField[++i].getText());
+				gear.setMaterial4(textField[++i].getText());
+				gear.setMaterial4Quantity(textField[++i].getText());
+				new JsonBuilder(gear, "feetgear");
+			}
+		});
+		gearFrame.setVisible(true);
 		gearPanel.add(headGear);
 		gearPanel.add(chestGear);
 		gearPanel.add(gauntletGear);
 		gearPanel.add(waistGear);
 		gearPanel.add(feetGear);
-		gearPanel.setLayout(new GridLayout(numPairs + 6 ,2));
+		gearPanel.setLayout(new GridLayout(numPairs + 3, 3));
 		gearFrame.add(gearPanel);
 		gearFrame.setTitle("Enter gear properties");
 		gearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gearFrame.setLocationRelativeTo(null);
-		gearFrame.setPreferredSize(new Dimension(700, 500));
+		gearFrame.setPreferredSize(new Dimension(1920, 2160));
+		gearFrame.setLocation(0, 0);
 		gearFrame.pack();
-		
-		gearFrame.setVisible(true);
-		
-	}
-	
-	public JButton jButton(String gearType, JTextField[] textField) {
-		JButton button = new JButton(gearType);
-		Gear gear = new Gear();
-		
-		button = new JButton(gearType);
-		button.setFont(new Font("Arial", Font.PLAIN, 30));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gear.setName(textField[0].getText());
-				gear.setMonster(textField[1].getText());
-				gear.setDefense(textField[2].getText());
-				gear.setSlotType1(textField[3].getText());
-				gear.setSlotType2(textField[4].getText());
-				gear.setSlotType3(textField[5].getText());
-				gear.setFireDef(textField[6].getText());
-				gear.setWaterDef(textField[7].getText());
-				gear.setThunderDef(textField[8].getText());
-				gear.setIceDef(textField[9].getText());
-				gear.setDragonDef(textField[10].getText());
-				gear.setSkill1Name(textField[11].getText());
-				gear.setSkill1Quantity(textField[12].getText());
-				gear.setSkill2Name(textField[13].getText());
-				gear.setSkill2Quantity(textField[14].getText());
-				gear.setBonusName(textField[15].getText());
-				gear.setBonusRequiredPieces(textField[16].getText());
-				try {
-					new GearBuilder().jsonBuilder(gear, gearType);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		return button;
-	}
 
+	}
 }

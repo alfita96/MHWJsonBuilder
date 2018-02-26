@@ -2,7 +2,7 @@ package com.mhw.gear;
 
 public class Gear {
 	String name;
-	String monster;
+	String price;
 	String defense;
 	String slotType1 = "0";
 	String slotType2 = "0";
@@ -16,8 +16,15 @@ public class Gear {
 	String skill1Quantity;
 	String skill2Name;
 	String skill2Quantity;
-	String bonusRequiredPieces;
-	String bonusName;
+	String material1;
+	String material1Quantity;
+	String material2;
+	String material2Quantity;
+	String material3;
+	String material3Quantity;
+	String material4;
+	String material4Quantity;
+	
 
 	public String getName() {
 		return name;
@@ -27,12 +34,12 @@ public class Gear {
 		this.name = name;
 	}
 
-	public String getMonster() {
-		return monster;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setMonster(String monster) {
-		this.monster = monster;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getDefense() {
@@ -139,19 +146,67 @@ public class Gear {
 		this.skill2Quantity = skill2Quantity;
 	}
 
-	public String getBonusRequiredPieces() {
-		return bonusRequiredPieces;
+	public String getMaterial1() {
+		return material1;
 	}
 
-	public void setBonusRequiredPieces(String bonusRequiredPieces) {
-		this.bonusRequiredPieces = bonusRequiredPieces;
+	public void setMaterial1(String material1) {
+		this.material1 = material1;
 	}
 
-	public String getBonusName() {
-		return bonusName;
+	public String getMaterial1Quantity() {
+		return material1Quantity;
 	}
 
-	public void setBonusName(String bonusName) {
-		this.bonusName = bonusName;
+	public void setMaterial1Quantity(String material1Quantity) {
+		this.material1Quantity = material1Quantity;
+	}
+
+	public String getMaterial2() {
+		return material2;
+	}
+
+	public void setMaterial2(String material2) {
+		this.material2 = material2;
+	}
+
+	public String getMaterial2Quantity() {
+		return material2Quantity;
+	}
+
+	public void setMaterial2Quantity(String material2Quantity) {
+		this.material2Quantity = material2Quantity;
+	}
+
+	public String getMaterial3() {
+		return material3;
+	}
+
+	public void setMaterial3(String material3) {
+		this.material3 = material3;
+	}
+
+	public String getMaterial3Quantity() {
+		return material3Quantity;
+	}
+
+	public void setMaterial3Quantity(String material3Quantity) {
+		this.material3Quantity = material3Quantity;
+	}
+
+	public String getMaterial4() {
+		return material4;
+	}
+
+	public void setMaterial4(String material4) {
+		this.material4 = material4;
+	}
+
+	public String getMaterial4Quantity() {
+		return material4Quantity;
+	}
+
+	public void setMaterial4Quantity(String material4Quantity) {
+		this.material4Quantity = material4Quantity;
 	}
 }
