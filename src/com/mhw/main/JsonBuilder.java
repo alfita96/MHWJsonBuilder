@@ -11,11 +11,11 @@ import com.mhw.gear.Gear;
 public class JsonBuilder {
 	@SuppressWarnings("unchecked")
 	public JsonBuilder(Gear gear, String gearType) {
-		String headPath = "C:\\Users\\Alfon\\git\\MHWJsonBuilder\\src\\headgear.json";
-		String chestPath = "C:\\Users\\Alfon\\git\\MHWJsonBuilder\\src\\chestgear.json";
-		String gauntletPath = "C:\\Users\\Alfon\\git\\MHWJsonBuilder\\src\\gauntletgear.json";
-		String waistPath = "C:\\Users\\Alfon\\git\\MHWJsonBuilder\\src\\waistgear.json";
-		String feetPath = "C:\\Users\\Alfon\\git\\MHWJsonBuilder\\src\\feetgear.json";
+		String headPath = "src\\headgear.json";
+		String chestPath = "src\\chestgear.json";
+		String gauntletPath = "src\\gauntletgear.json";
+		String waistPath = "src\\waistgear.json";
+		String feetPath = "src\\feetgear.json";
 
 		String path = null;
 

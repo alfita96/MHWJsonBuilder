@@ -394,7 +394,8 @@ public class GearBuilder {
 		gearFrame.add(gearPanel);
 		gearFrame.setTitle("Enter gear properties");
 		gearFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gearFrame.setPreferredSize(new Dimension(1920, 2160));
+		//gearFrame.setPreferredSize(new Dimension(1920, 2160));
+		gearFrame.setPreferredSize(new Dimension(960, 1040));
 		gearFrame.setLocation(0, 0);
 		gearFrame.pack();
 
