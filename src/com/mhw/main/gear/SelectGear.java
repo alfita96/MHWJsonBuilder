@@ -1,4 +1,4 @@
-package com.mhw.main;
+package com.mhw.main.gear;
 
 public class SelectGear {
 

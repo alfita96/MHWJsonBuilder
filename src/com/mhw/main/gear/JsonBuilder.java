@@ -1,4 +1,4 @@
-package com.mhw.main;
+package com.mhw.main.gear;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
