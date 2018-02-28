@@ -1,4 +1,4 @@
-package com.mhw.gear;
+package com.mhw.objects;
 
 public class Gear {
 	String name;

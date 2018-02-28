@@ -18,11 +18,11 @@ import javax.swing.SpringLayout;
 
 import org.json.simple.JSONObject;
 
-import com.mhw.gear.Gear;
+import com.mhw.objects.Gear;
 
 public class GearBuilder {
 
-	GearBuilder() {
+	public static void main(String[] args) {
 		Gear gear = new Gear();
 
 		JFrame gearFrame = new JFrame();

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 
-import com.mhw.gear.Gear;
+import com.mhw.objects.Gear;
 
 public class JsonBuilder {
 	@SuppressWarnings("unchecked")
